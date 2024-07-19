@@ -118,7 +118,7 @@ def signup():
     # user_id = st.sidebar.text_input("User ID")
 
     if st.sidebar.button("Registrar"):
-        if email and password and yt_user and user_id:
+        if email and password and yt_user:
             # Verificar si el usuario ya existe
             response = supabase_client.table('players').select('*').eq('email', email).execute()
             if response.data:
