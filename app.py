@@ -104,6 +104,8 @@ import uuid
 import random
 from datetime import datetime
 
+st.set_page_config(page_title="2024 F1 Fantasy", page_icon="🏆", layout="wide")
+
 # Configurar tu Supabase
 url = st.secrets["url"]
 key = st.secrets["key"]
