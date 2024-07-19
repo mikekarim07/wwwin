@@ -64,7 +64,31 @@ def login():
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
 
-if not st.session_state.logged_in:
+# if not st.session_state.logged_in:
+#     st.sidebar.title("Acceso")
+#     page = st.sidebar.radio("Selecciona una opción", ["Iniciar Sesión", "Registrarse"])
+
+#     if page == "Registrarse":
+#         signup()
+#     elif page == "Iniciar Sesión":
+#         login()
+# else:
+#     st.sidebar.write("Bienvenido,", st.session_state.user_email)
+
+
+
+#-----------------------
+def signout():
+    st.session_state.logged_in = False
+    st.session_state.user_email = None
+    st.sidebar.success("Has cerrado sesión exitosamente.")
+
+if st.session_state.logged_in:
+    with st.sidebar:
+        if st.button("Cerrar Sesión"):
+            signout()
+    st.write("Bienvenido,", st.session_state.user_email)
+else:
     st.sidebar.title("Acceso")
     page = st.sidebar.radio("Selecciona una opción", ["Iniciar Sesión", "Registrarse"])
 
@@ -72,5 +96,13 @@ if not st.session_state.logged_in:
         signup()
     elif page == "Iniciar Sesión":
         login()
-else:
-    st.sidebar.write("Bienvenido,", st.session_state.user_email)
+
+
+
+
+
+
+
+
+
+
