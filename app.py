@@ -87,7 +87,7 @@ if st.session_state.logged_in:
     with st.sidebar:
         if st.button("Cerrar Sesión"):
             signout()
-    st.write("Bienvenido,", st.session_state.user_email)
+    st.sidebar.write("Bienvenido,", st.session_state.user_email)
 else:
     st.sidebar.title("Acceso")
     page = st.sidebar.radio("Selecciona una opción", ["Iniciar Sesión", "Registrarse"])
