@@ -8,16 +8,10 @@ url = st.secrets["url"]
 key = st.secrets["key"]
 supabase_client = create_client(url, key)
 
-import streamlit as st
-from supabase import create_client, Client
-import uuid
-import random
-from datetime import datetime
-
-# Configurar tu Supabase
-url = "https://xyzcompany.supabase.co"
-key = "your_supabase_api_key"
-supabase: Client = create_client(url, key)
+# # Configurar tu Supabase
+# url = "https://xyzcompany.supabase.co"
+# key = "your_supabase_api_key"
+# supabase: Client = create_client(url, key)
 
 def signup():
     st.title("Registro")
@@ -30,12 +24,12 @@ def signup():
     if st.button("Registrar"):
         if email and password and yt_user and user_id:
             # Verificar si el usuario ya existe
-            response = supabase.table('players').select('*').eq('email', email).execute()
+            response = supabase_client.table('players').select('*').eq('email', email).execute()
             if response.data:
                 st.warning("El usuario ya está registrado.")
             else:
                 # Registrar nuevo usuario
-                supabase.table('players').insert({
+                supabase_client.table('players').insert({
                     "email": email,
                     "password": password,
                     "ytUser": yt_user,
@@ -53,7 +47,7 @@ def login():
 
     if st.button("Iniciar Sesión"):
         if email and password:
-            response = supabase.table('players').select('*').eq('email', email).execute()
+            response = supabase_client.table('players').select('*').eq('email', email).execute()
             if response.data:
                 user = response.data[0]
                 if user['password'] == password:
