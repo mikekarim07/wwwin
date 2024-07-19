@@ -14,19 +14,19 @@ supabase_client = create_client(url, key)
 # supabase: Client = create_client(url, key)
 
 def signup():
-    st.title("Registro")
+    st.sidebar.title("Registro")
 
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
-    yt_user = st.text_input("YouTube User")
-    user_id = st.text_input("User ID")
+    email = st.sidebar.text_input("Email")
+    password = st.sidebar.text_input("Password", type="password")
+    yt_user = st.sidebar.text_input("YouTube User")
+    user_id = st.sidebar.text_input("User ID")
 
-    if st.button("Registrar"):
+    if st.sidebar.button("Registrar"):
         if email and password and yt_user and user_id:
             # Verificar si el usuario ya existe
             response = supabase_client.table('players').select('*').eq('email', email).execute()
             if response.data:
-                st.warning("El usuario ya está registrado.")
+                st.sidebar.warning("El usuario ya está registrado.")
             else:
                 # Registrar nuevo usuario
                 supabase_client.table('players').insert({
@@ -35,17 +35,17 @@ def signup():
                     "ytUser": yt_user,
                     "userId": user_id
                 }).execute()
-                st.success("Registrado exitosamente.")
+                st.sidebar.success("Registrado exitosamente.")
         else:
-            st.error("Por favor, completa todos los campos.")
+            st.sidebar.error("Por favor, completa todos los campos.")
 
 def login():
-    st.title("Iniciar Sesión")
+    st.sidebar.title("Iniciar Sesión")
 
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
+    email = st.sidebar.text_input("Email")
+    password = st.sidebar.text_input("Password", type="password")
 
-    if st.button("Iniciar Sesión"):
+    if st.sidebar.button("Iniciar Sesión"):
         if email and password:
             response = supabase_client.table('players').select('*').eq('email', email).execute()
             if response.data:
@@ -53,13 +53,13 @@ def login():
                 if user['password'] == password:
                     st.session_state.logged_in = True
                     st.session_state.user_email = email
-                    st.success("Sesión iniciada.")
+                    st.sidebar.success("Sesión iniciada.")
                 else:
-                    st.error("Contraseña incorrecta.")
+                    st.sidebar.error("Contraseña incorrecta.")
             else:
-                st.error("El email no está registrado.")
+                st.sidebar.error("El email no está registrado.")
         else:
-            st.error("Por favor, ingresa email y contraseña.")
+            st.sidebar.error("Por favor, ingresa email y contraseña.")
 
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
@@ -73,4 +73,4 @@ if not st.session_state.logged_in:
     elif page == "Iniciar Sesión":
         login()
 else:
-    st.write("Bienvenido,", st.session_state.user_email)
+    st.sidebar.write("Bienvenido,", st.session_state.user_email)
