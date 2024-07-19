@@ -115,7 +115,7 @@ def signup():
     email = st.sidebar.text_input("Email")
     password = st.sidebar.text_input("Password", type="password")
     yt_user = st.sidebar.text_input("YouTube User")
-    user_id = st.sidebar.text_input("User ID")
+    # user_id = st.sidebar.text_input("User ID")
 
     if st.sidebar.button("Registrar"):
         if email and password and yt_user and user_id:
